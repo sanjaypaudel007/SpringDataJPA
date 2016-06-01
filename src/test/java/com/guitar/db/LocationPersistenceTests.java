@@ -15,16 +15,28 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.guitar.db.model.Location;
+import com.guitar.db.repository.LocationJpaRepository;
 import com.guitar.db.repository.LocationRepository;
+
+import junit.framework.Assert;
 
 @ContextConfiguration(locations={"classpath:com/guitar/db/applicationTests-context.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class LocationPersistenceTests {
 	@Autowired
 	private LocationRepository locationRepository;
+	
+	@Autowired
+	private LocationJpaRepository locationJpaRepository;
 
 	@PersistenceContext
 	private EntityManager entityManager;
+	
+	@Test
+	public void testJpaFind(){
+		List<Location> locations = locationJpaRepository.findAll();
+		Assert.assertNotNull(locations);
+	}
 
 	@Test
 	@Transactional
