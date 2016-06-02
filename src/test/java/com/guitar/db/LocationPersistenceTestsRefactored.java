@@ -58,7 +58,7 @@ public class LocationPersistenceTestsRefactored {
 
 	@Test
 	public void testFindWithLike() throws Exception {
-		List<Location> locs = locationJpaRepository.findByStateLike("New%");	//should include % 
+		List<Location> locs = locationJpaRepository.findByStateLikeIgnoreCaseOrderByStateAsc("new%");	//should include % 
 		assertEquals(4, locs.size());
 	}
 
@@ -72,5 +72,46 @@ public class LocationPersistenceTestsRefactored {
 		assertEquals(1, arizona.getManufacturers().size());
 		
 		assertEquals("Fender Musical Instruments Corporation", arizona.getManufacturers().get(0).getName());
+	}
+
+	@Test
+	public void testFindWithNotLike() throws Exception {
+		List<Location> locs = locationJpaRepository.findByStateNotLike("New%");	//should include % 
+		Assert.assertNotSame(4, locs.size());
+	}
+	
+	@Test
+	public void testAnd(){
+		List<Location> result = locationJpaRepository.findByStateAndCountry("Texas", "United States");
+		Assert.assertNotNull(result);
+		Assert.assertEquals("Texas", result.get(0).getState());
+	}
+	
+	@Test
+	public void testOr(){
+		List<Location> result = locationJpaRepository.findByStateOrCountry("Texas", "Nepal");
+		Assert.assertNotNull(result);
+		Assert.assertEquals("Texas", result.get(0).getState());
+	}
+
+	@Test
+	public void testIs(){
+		List<Location> result = locationJpaRepository.findByStateIs("Texas");
+		Assert.assertNotNull(result);
+		Assert.assertEquals("Texas", result.get(0).getState());
+	}
+
+	@Test
+	public void testEquals(){
+		List<Location> result = locationJpaRepository.findByStateEquals("Texas");
+		Assert.assertNotNull(result);
+		Assert.assertEquals("Texas", result.get(0).getState());
+	}
+
+	@Test
+	public void testNot(){
+		List<Location> result = locationJpaRepository.findByStateNot("Texas");
+		Assert.assertNotNull(result);
+		Assert.assertNotSame("Texas", result.get(0).getState());
 	}
 }
