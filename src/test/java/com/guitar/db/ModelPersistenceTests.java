@@ -65,7 +65,7 @@ public class ModelPersistenceTests {
 
 	@Test
 	public void testGetModelsByPriceRangeAndWoodType() throws Exception {
-		List<Model> mods = modelRepository.getModelsByPriceRangeAndWoodType(BigDecimal.valueOf(1000L), BigDecimal.valueOf(2000L), "Mapl");
+		List<Model> mods = modelRepository.getModelsByPriceRangeAndWoodType(BigDecimal.valueOf(1000L), BigDecimal.valueOf(2000L), "Maple");
 		assertEquals(3, mods.size());
 	}
 

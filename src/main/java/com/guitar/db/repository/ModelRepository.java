@@ -84,18 +84,21 @@ public class ModelRepository {
 //				.setParameter("wood", "%" + wood + "%").getResultList();
 //		return mods;
 		
-		return modelJpaRepository.findByPriceGreaterThanEqualAndPriceLessThanEqualAndWoodTypeContaining(lowest, highest, wood);
+		//return modelJpaRepository.findByPriceGreaterThanEqualAndPriceLessThanEqualAndWoodTypeContaining(lowest, highest, wood);
+		return modelJpaRepository.findModelsByPriceRangeAndWoodType(lowest, highest, "%" +  wood + "%");
 	}
 
 	/**
 	 * NamedQuery finder
 	 */
 	public List<Model> getModelsByType(String modelType) {
-		@SuppressWarnings("unchecked")
-		List<Model> mods = entityManager
-				.createNamedQuery("Model.findAllModelsByType")
-				.setParameter("name", modelType).getResultList();
-		return mods;
+//		@SuppressWarnings("unchecked")
+//		List<Model> mods = entityManager
+//				.createNamedQuery("Model.findAllModelsByType")
+//				.setParameter("name", modelType).getResultList();
+//		return mods;
+		
+		return modelJpaRepository.findAllModelsByType(modelType);
 	}
 
 	/**

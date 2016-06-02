@@ -11,5 +11,9 @@ import com.guitar.db.model.Manufacturer;
 @Repository
 public interface ManufacturerJpaRepository extends JpaRepository<Manufacturer, Long> {
 	List<Manufacturer> findByFoundedDateBefore(Date date);
+	
+	//native named query
+	//works fine.. ignore the error.
+	//List<Manufacturer> getAllThatSellAcoustics(String name);
 
 }
